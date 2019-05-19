@@ -6,6 +6,7 @@ import Header from './components/header.js';
 import Home from './pages/home.js';
 import PageNotFound from './pages/pageNotFound.js';
 import Styles from './pages/styles.js';
+import Weather from './pages/weather.js';
 
 const root = (
   <div>
@@ -13,6 +14,7 @@ const root = (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/styles" component={Styles} />
+      <Route exact path="/weather" component={Weather} />
       <Route component={PageNotFound} />
     </Switch>
   </div>

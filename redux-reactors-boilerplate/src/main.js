@@ -40,5 +40,6 @@ export default () => {
   __NODE__ && app.register(GetInitialStateToken, getInitialState);
   app.register(PreloadedStateToken, {counter: 0});
 
+
   return app;
 };
