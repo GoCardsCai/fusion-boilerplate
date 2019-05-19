@@ -2,6 +2,7 @@
 import React from 'react';
 import {getForecastReactor} from '../reactors/forecastReactor';
 import {connect} from 'react-redux';
+import {ForecastCard} from '../components/forecastCard';
 
 class Weather extends React.Component {
   constructor(props) {
@@ -18,15 +19,9 @@ class Weather extends React.Component {
       return null;
     }
 
-    const {name, temperature, temperatureUnit, windSpeed, windDirection, icon} = periods[0];
     return (
       <div>
-        <li>name: {name}</li>
-        <li>temperature: {temperature}</li>
-        <li>temperatureUnit: {temperatureUnit}</li>
-        <li>windSpeed: {windSpeed}</li>
-        <li>windDirection: {windDirection}</li>
-        <img src={icon}></img>
+        {periods.map(period => <ForecastCard period={period}/>)}
       </div>
     );
   }
