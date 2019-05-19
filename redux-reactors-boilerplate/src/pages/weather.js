@@ -1,5 +1,7 @@
 
 import React from 'react';
+import {getForecastReactor} from '../reactors/forecastReactor';
+import {connect} from 'react-redux';
 
 class Weather extends React.Component {
   constructor(props) {
@@ -15,4 +17,16 @@ class Weather extends React.Component {
   }
 }
 
-export default Weather;
+
+const mapStateToProps = (state) => {
+  return {
+    periods: state.periods,
+  };
+};
+
+const mapDispatchToProps = {
+  getForecast: getForecastReactor,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Weather);
+

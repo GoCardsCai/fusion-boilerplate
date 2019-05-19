@@ -1,5 +1,6 @@
 import {createReactor} from 'redux-reactors';
-export const forecastReactor = createReactor('GET_FORECAST', (state, action) => {
+
+export const getForecastReactor = createReactor('GET_FORECAST', (state, action) => {
   return {
     ...state,
     periods:[{number: 1,
