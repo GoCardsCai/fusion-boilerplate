@@ -3,6 +3,15 @@ import React from 'react';
 import {getForecastReactor} from '../reactors/forecastReactor';
 import {connect} from 'react-redux';
 import {ForecastCard} from '../components/forecastCard';
+import {styled} from 'fusion-plugin-styletron-react';
+
+const Container = styled('div',
+  {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-between"
+  }
+);
 
 class Weather extends React.Component {
   constructor(props) {
@@ -20,9 +29,9 @@ class Weather extends React.Component {
     }
 
     return (
-      <div>
-        {periods.map(period => <ForecastCard period={period}/>)}
-      </div>
+      <Container>
+        {periods.map((period, idx) => <ForecastCard period={period} key={idx}/>)}
+      </Container>
     );
   }
 }
