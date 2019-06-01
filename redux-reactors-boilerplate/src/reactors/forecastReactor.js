@@ -1,20 +1,24 @@
-import {createReactor} from 'redux-reactors';
+import {withRPCReactor} from 'fusion-plugin-rpc-redux-react';
 
-let periods = [{}];
+export const getForecastReactor = withRPCReactor('getForecast', {
+  start: (state, action) => {
+    return {
+      ...state,
+      periods:[],
+    }
+  },
 
-export const getForecastReactor = createReactor('GET_FORECAST', (state, action) => {
+  success: (state, action) => {
+    return {
+      ...state,
+      periods: action.payload.resp
+    }
+  },
 
-  fetch('https://api.weather.gov/gridpoints/MTR/87,118/forecast')
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(myJson) {
-      console.log(myJson);
-      periods = myJson.properties.periods;
-    });
-
-  return {
-    ...state,
-    periods: periods
-  };
-});
+  failure: (state, action) => {
+    return {
+      ...state,
+      error: `Can't load forecast data`
+    }
+  },
+},);

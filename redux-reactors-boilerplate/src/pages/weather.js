@@ -2,6 +2,7 @@
 import React from 'react';
 import {getForecastReactor} from '../reactors/forecastReactor';
 import {connect} from 'react-redux';
+import {compose} from 'redux';
 import {ForecastCard} from '../components/forecastCard';
 import {styled} from 'fusion-plugin-styletron-react';
 
@@ -19,7 +20,8 @@ class Weather extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getForecast();
+    console.log(this.props);
+    //this.props.getForecast();
   }
 
   render() {
@@ -44,8 +46,12 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  getForecast: getForecastReactor,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Weather);
+const HOC = compose(
+  getForecastReactor,
+  connect(mapStateToProps, mapDispatchToProps)
+);
+
+export default HOC(Weather);
 

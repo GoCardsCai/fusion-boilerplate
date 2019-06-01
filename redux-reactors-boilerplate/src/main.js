@@ -1,5 +1,4 @@
 import React from 'react';
-import {compose} from 'redux';
 
 import App from 'fusion-react';
 import {FetchToken} from 'fusion-tokens';
@@ -10,7 +9,6 @@ import Redux, {
   GetInitialStateToken,
   PreloadedStateToken,
 } from 'fusion-plugin-react-redux';
-import ReduxActionEmitterEnhancer from 'fusion-plugin-redux-action-emitter-enhancer';
 
 import Router from 'fusion-plugin-react-router';
 import Styletron from 'fusion-plugin-styletron-react';
@@ -19,6 +17,8 @@ import UniversalEvents, {
 } from 'fusion-plugin-universal-events';
 
 import {reactorEnhancer} from 'redux-reactors';
+import RPC, {RPCToken, RPCHandlersToken} from 'fusion-plugin-rpc-redux-react';
+import handlers from './rpc';
 
 import getInitialState from './initialState.js';
 
@@ -32,11 +32,14 @@ export default () => {
   __BROWSER__ && app.register(FetchToken, fetch);
 
   app.register(ReduxToken, Redux);
-  app.register(EnhancerToken, ReduxActionEmitterEnhancer);
-  app.enhance(EnhancerToken, () => reactorEnhancer);
+  app.register(ReducerToken, state => state);
+  app.register(EnhancerToken, reactorEnhancer);
 
-  const reducer = state => state;
-  app.register(ReducerToken, reducer);
+  app.register(RPCToken, RPC);
+  __NODE__
+    ? app.register(RPCHandlersToken, handlers)
+    : app.register(FetchToken, fetch);
+
   __NODE__ && app.register(GetInitialStateToken, getInitialState);
   app.register(PreloadedStateToken, {counter: 0});
 
