@@ -17,32 +17,52 @@ const Container = styled('div',
 class Weather extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      location:'87,118'
+    }
   }
 
   componentDidMount() {
-    console.log(this.props);
-    this.props.getForecast();
+    this.props.getForecast(this.state);
+  }
+
+  startSearch = () => {
+    const {location} = this.state;
+    this.props.getForecast({location});
   }
 
   render() {
-    const {periods} = this.props;
+    const {periods, loading} = this.props;
+    const {location} = this.state;
+
     if (!periods) {
       return null;
     }
 
     return (
-      <Container>
-        {periods.map((period, idx) => <ForecastCard period={period} key={idx}/>)}
-      </Container>
+      <div>
+        <div>
+          Please input the new location:
+          <input
+            defaultValue={location}
+            onChange={(e) => {
+              this.setState({location:e.target.value})}
+            }
+          />
+          <button onClick={this.startSearch}>Search</button>
+        </div>
+        {loading && <h3>loading</h3>}
+        <Container>
+          {periods.map((period, idx) => <ForecastCard period={period} key={idx}/>)}
+        </Container>
+      </div>
     );
   }
 }
 
 
 const mapStateToProps = (state) => {
-  return {
-    periods: state.periods,
-  };
+  return state
 };
 
 const mapDispatchToProps = {
