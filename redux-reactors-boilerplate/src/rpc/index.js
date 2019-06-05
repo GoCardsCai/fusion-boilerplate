@@ -24,7 +24,11 @@ export default createPlugin({
       getForecast: async ({location}, ctx) => {
         let periods = []
         try {
-          periods = await deps.fetch(`https://api.weather.gov/gridpoints/MTR/${location}/forecast`)
+          const forecastLink = await deps.fetch(`https://api.weather.gov/points/${location}`)
+            .then(resp => resp.json())
+            .then(json => json.properties.forecast);
+
+          periods = await deps.fetch(forecastLink)
           .then(function(response) {
             return response.json();
           })

@@ -18,7 +18,7 @@ class Weather extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      location:'87,118'
+      location:'37.5914,-122.3893'
     }
   }
 
