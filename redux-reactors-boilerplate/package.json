@@ -14,15 +14,18 @@
     "fusion-plugin-universal-events-react": "^1.0.2",
     "fusion-react": "^1.1.0",
     "fusion-tokens": "^1.0.4",
+    "isomorphic-unfetch": "^3.0.0",
+    "node-fetch": "^2.6.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-redux": "^6.0.0",
+    "react-redux": "5.0.5",
     "redux": "^4.0.0",
     "redux-reactors": "^1.0.3",
     "redux-scoped-reducer": "^0.0.4",
     "styletron": "^3.0.4",
     "styletron-engine-atomic": "^1.1.2",
-    "styletron-react": "^5.0.1"
+    "styletron-react": "^5.0.1",
+    "unfetch": "^4.0.0"
   },
   "scripts": {
     "dev": "fusion dev",

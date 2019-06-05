@@ -21,7 +21,7 @@ class Weather extends React.Component {
 
   componentDidMount() {
     console.log(this.props);
-    //this.props.getForecast();
+    this.props.getForecast();
   }
 
   render() {

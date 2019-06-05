@@ -16,6 +16,8 @@ import UniversalEvents, {
   UniversalEventsToken,
 } from 'fusion-plugin-universal-events';
 
+import unfetch from 'isomorphic-unfetch';
+
 import {reactorEnhancer} from 'redux-reactors';
 import RPC, {RPCToken, RPCHandlersToken} from 'fusion-plugin-rpc-redux-react';
 import handlers from './rpc';
@@ -29,16 +31,15 @@ export default () => {
   app.register(Styletron);
   app.register(Router);
   app.register(UniversalEventsToken, UniversalEvents);
-  __BROWSER__ && app.register(FetchToken, fetch);
+  app.register(FetchToken, unfetch);
 
   app.register(ReduxToken, Redux);
   app.register(ReducerToken, state => state);
   app.register(EnhancerToken, reactorEnhancer);
 
   app.register(RPCToken, RPC);
-  __NODE__
-    ? app.register(RPCHandlersToken, handlers)
-    : app.register(FetchToken, fetch);
+  __NODE__ && app.register(RPCHandlersToken, handlers)
+
 
   __NODE__ && app.register(GetInitialStateToken, getInitialState);
   app.register(PreloadedStateToken, {counter: 0});

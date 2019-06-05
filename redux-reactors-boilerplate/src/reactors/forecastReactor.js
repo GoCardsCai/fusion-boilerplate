@@ -3,21 +3,19 @@ import {withRPCReactor} from 'fusion-plugin-rpc-redux-react';
 export const getForecastReactor = withRPCReactor('getForecast', {
   start: (state, action) => {
     return {
-      ...state,
+      loading: true,
       periods:[],
     }
   },
 
   success: (state, action) => {
     return {
-      ...state,
-      periods: action.payload.resp
+      periods: action.payload.periods
     }
   },
 
   failure: (state, action) => {
     return {
-      ...state,
       error: `Can't load forecast data`
     }
   },
